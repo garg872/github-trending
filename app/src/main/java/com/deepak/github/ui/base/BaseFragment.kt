@@ -17,7 +17,7 @@ import javax.inject.Inject
 import dagger.android.support.AndroidSupportInjection
 import dagger.android.support.DaggerFragment
 
-abstract class BaseFragment<V : ViewModel, D : ViewDataBinding> : DaggerFragment() {
+abstract class BaseFragment<V : ViewModel, D : ViewDataBinding> : Fragment() {
 
 
     @Inject

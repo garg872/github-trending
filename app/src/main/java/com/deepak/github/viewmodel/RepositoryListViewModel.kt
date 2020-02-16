@@ -7,17 +7,16 @@ import com.deepak.github.data.remote.Resource
 import com.deepak.github.data.remote.repository.RepositoriesRepository
 import javax.inject.Inject
 
-class RepositoryListViewModel : ViewModel() {
+class RepositoryListViewModel @Inject
+constructor(repositoriesRepository: RepositoriesRepository) : ViewModel() {
 
-    var tendingRepositoryList : LiveData<Resource<List<RepositoryEntity>>>? = null
+    val tendingRepositoryList : LiveData<Resource<List<RepositoryEntity>>>
 
-
-    @Inject
-    fun RepositoryListViewModel(repositoriesRepository: RepositoriesRepository) {
+    init {
         tendingRepositoryList = repositoriesRepository.fetchRepositories()
     }
 
     fun getTendingRepositories() : LiveData<Resource<List<RepositoryEntity>>>?  {
-        return tendingRepositoryList;
+        return tendingRepositoryList
     }
 }

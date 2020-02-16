@@ -19,36 +19,26 @@ import com.deepak.github.R
 import com.deepak.github.data.local.entity.RepositoryEntity
 import com.deepak.github.data.remote.Status
 import com.deepak.github.databinding.FragmentTrendingReposBinding
+import com.deepak.github.ui.adaptor.RepositoryListAdapter
 import com.deepak.github.ui.base.BaseFragment
 import com.deepak.github.ui.callbacks.RepositoryListCallback
 import com.deepak.github.viewmodel.RepositoryListViewModel
+import javax.inject.Inject
 
 
 class RepositoryListFragment : BaseFragment<RepositoryListViewModel, FragmentTrendingReposBinding>(),
     RepositoryListCallback {
 
+    @Inject
     override fun getViewModel() = (RepositoryListViewModel::class.java)
 
     override val layoutRes: Int
         get() = R.layout.fragment_trending_repos
 
+    var repositoryListAdapter: RepositoryListAdapter? = null
+
     override fun onRepositoryClicked(repositoryEntity: RepositoryEntity?) {
-/*            val args = Bundle()
-            args.putString(Constants.BUNDLE_KEY_ARTICLE_URL, articleEntity.getUrl())
-            args.putString(
-                Constants.BUNDLE_KEY_ARTICLE_PUBLISHED_DATE,
-                articleEntity.getPublishedDate()
-            )
-            val detailFragment = ArticleDetailFragment()
-            detailFragment.setArguments(args)
-            FragmentUtils.replaceFragment(
-                getActivity() as AppCompatActivity,
-                detailFragment,
-                R.id.fragContainer,
-                true,
-                FragmentUtils.TRANSITION_SLIDE_LEFT_RIGHT
-            )
-        }*/
+
     }
 
 
@@ -64,8 +54,9 @@ class RepositoryListFragment : BaseFragment<RepositoryListViewModel, FragmentTre
     ): View? {
         super.onCreateView(inflater, container, savedInstanceState)
         //setHasOptionsMenu(true)
-        //dataBinding?.recyclerView?.setLayoutManager(LinearLayoutManager(getActivity()))
-        //dataBinding?.recyclerView?.setAdapter(ArticleListAdapter(this))
+        dataBinding?.recyclerView?.setLayoutManager(LinearLayoutManager(getActivity()))
+        repositoryListAdapter = RepositoryListAdapter(this)
+        dataBinding?.recyclerView?.setAdapter(repositoryListAdapter)
         return dataBinding?.getRoot()
     }
 
@@ -78,7 +69,10 @@ class RepositoryListFragment : BaseFragment<RepositoryListViewModel, FragmentTre
             if (null != listResource && (listResource.status === Status.ERROR || listResource.status === Status.SUCCESS)) {
                 dataBinding?.loadingProgress?.setVisibility(View.GONE)
             }
-            dataBinding?.setResource(listResource)
+            listResource?.data?.let {
+                repositoryListAdapter?.setData(it)
+            }
+
             Log.i("DEEPAK", "sd" + listResource.toString())
         })
 

@@ -3,6 +3,7 @@ package com.deepak.github.di.module
 import android.app.Application
 import android.arch.persistence.room.Room
 import com.deepak.github.data.local.RepositoryDatabase
+import com.deepak.github.data.local.dao.DeveloperDao
 import com.deepak.github.data.local.dao.RepositoryDao
 
 import com.deepak.github.data.remote.ApiConstants
@@ -58,4 +59,9 @@ class AppModule {
         return repositoryDatabase.repositoryDao()
     }
 
+    @Provides
+    @Singleton
+    fun provideDeveloperDao(repositoryDatabase : RepositoryDatabase): DeveloperDao{
+        return repositoryDatabase.developerDao()
+    }
 }

@@ -1,6 +1,8 @@
 package com.deepak.github.data.local.entity
 
+import android.arch.persistence.room.ColumnInfo
 import android.arch.persistence.room.Entity
+import android.arch.persistence.room.PrimaryKey
 import android.os.Parcel
 import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
@@ -8,6 +10,7 @@ import com.google.gson.annotations.SerializedName
 @Entity(tableName = "repositories")
 data class RepositoryEntity (
 
+    @ColumnInfo(name="author")
     @SerializedName("author")
     var author: String? = null,
 
@@ -16,6 +19,10 @@ data class RepositoryEntity (
 
     @SerializedName("avatar")
     var avatar: String? = null,
+
+    @PrimaryKey
+    @SerializedName("url")
+    var url: String,
 
     @SerializedName("description")
     var description: String? = null,
@@ -34,9 +41,10 @@ data class RepositoryEntity (
 
     @SerializedName("currentPeriodStars")
     var currentPeriodStars: Int = 0
-) : Parcelable{
+) : Parcelable {
     //region Constructor
     constructor(parcel: Parcel) : this(
+        parcel.readString(),
         parcel.readString(),
         parcel.readString(),
         parcel.readString(),
@@ -54,6 +62,7 @@ data class RepositoryEntity (
         parcel.writeString(author)
         parcel.writeString(name)
         parcel.writeString(avatar)
+        parcel.writeString(url)
         parcel.writeString(description)
         parcel.writeString(language)
         parcel.writeString(languageColor)

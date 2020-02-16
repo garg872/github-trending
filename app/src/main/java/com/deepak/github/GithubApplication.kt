@@ -46,7 +46,7 @@ class GithubApplication : Application(), HasActivityInjector {
 
     private fun initializeComponent() {
         DaggerAppComponent.builder()
-            .application(this)
+            .application(this@GithubApplication)
             .build()
             .inject(this)
     }

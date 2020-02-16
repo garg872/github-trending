@@ -6,6 +6,7 @@ import android.arch.lifecycle.MediatorLiveData
 import android.os.AsyncTask
 import android.support.annotation.MainThread
 import android.support.annotation.WorkerThread
+import android.util.Log
 
 import com.deepak.github.GithubApplication
 import com.deepak.github.R
@@ -96,11 +97,12 @@ protected constructor() {
         object : AsyncTask<Void, Void, Void>() {
 
             override fun doInBackground(vararg voids: Void): Void? {
+                Log.i("DEEPAK", response.toString())
                 saveCallResult(response)
                 return null
             }
 
-            override fun onPostExecute(aVoid: Void) {
+            override fun onPostExecute(aVoid: Void?) {
                 result.addSource(loadFromDb()) { newData ->
                     if (null != newData)
                         result.value = Resource.success(newData)

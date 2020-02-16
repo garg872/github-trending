@@ -8,6 +8,7 @@ import android.arch.persistence.room.OnConflictStrategy
 import android.arch.persistence.room.Query
 import com.deepak.github.data.local.entity.RepositoryEntity
 
+@Dao
 interface RepositoryDao {
 
     @Query("SELECT * FROM repositories")

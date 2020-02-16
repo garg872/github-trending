@@ -16,9 +16,6 @@ import retrofit2.Call
 class RepositoriesRepository @Inject
 constructor(val repositoryDao: RepositoryDao, val apiService: GithubApiService) {
 
-
-
-
     fun fetchRepositories(): LiveData<Resource<List<RepositoryEntity>>> {
         return object : NetworkBoundResource<List<RepositoryEntity>, List<RepositoryEntity>>() {
 

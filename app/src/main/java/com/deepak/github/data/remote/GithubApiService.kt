@@ -1,5 +1,6 @@
 package com.deepak.github.data.remote
 
+import com.deepak.github.data.local.entity.DeveloperEntity
 import com.deepak.github.data.local.entity.RepositoryEntity
 
 import retrofit2.Call
@@ -11,4 +12,7 @@ interface GithubApiService {
 
     @GET("repositories")
     fun fetchRepositories(): Call<List<RepositoryEntity>>
+
+    @GET("developers")
+    fun fetchDevelopers(): Call<List<DeveloperEntity>>
 }

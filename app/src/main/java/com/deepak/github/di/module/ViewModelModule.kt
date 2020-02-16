@@ -2,6 +2,7 @@ package com.deepak.github.di.module
 
 import android.arch.lifecycle.ViewModel
 import android.arch.lifecycle.ViewModelProvider
+import com.deepak.github.viewmodel.DeveloperListViewModel
 import com.deepak.github.viewmodel.RepositoryListViewModel
 
 import com.deepak.github.viewmodel.ViewModelFactory
@@ -23,12 +24,10 @@ abstract class ViewModelModule {
     @ViewModelKey(RepositoryListViewModel::class)
     abstract fun bindsRepositoryListViewModel(repositoryListViewModel: RepositoryListViewModel): ViewModel
 
-    //    @Binds
-    //    @IntoMap
-    //    @ViewModelKey(ArticleDetailsViewModel.class)
-    //    @SuppressWarnings("unused")
-    //    abstract ViewModel bindsArticleDetailsiewModel(ArticleDetailsViewModel articleDetailsViewModel);
 
-
+    @Binds
+    @IntoMap
+    @ViewModelKey(DeveloperListViewModel::class)
+    abstract fun bindsDeveloperListViewModel(developerListViewModel: DeveloperListViewModel): ViewModel
 
 }

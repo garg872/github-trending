@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="developer"
+            type="com.deepak.github.data.local.entity.DeveloperEntity" />
+    </data>
+    <android.support.v7.widget.CardView
+        android:id="@+id/card_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/margin_large"
+        android:background="@android:color/white"
+        android:elevation="@dimen/card_view_elevation"
+        android:padding="@dimen/padding"
+        app:cardBackgroundColor="@android:color/white"
+        app:cardCornerRadius="@dimen/card_view_corner_radius"
+        app:cardElevation="@dimen/card_view_elevation">
+
+
+        <android.support.constraint.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/padding_large">
+
+            <android.support.v7.widget.AppCompatImageView
+                android:id="@+id/item_profile_img"
+                android:layout_width="@dimen/item_feed_profile_size"
+                android:layout_height="@dimen/item_feed_profile_size"
+                android:src="@drawable/ic_placeholder"
+                app:imageUrl="@{developer.avatar}"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <android.support.v7.widget.AppCompatTextView
+                android:id="@+id/item_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/margin"
+                android:layout_marginRight="@dimen/margin"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:paddingEnd="@dimen/margin"
+                android:paddingRight="@dimen/margin"
+                android:textColor="@color/item_color_title"
+                android:textSize="@dimen/font_medium"
+                android:textStyle="bold"
+                app:layout_constraintLeft_toRightOf="@id/item_profile_img"
+                app:layout_constraintTop_toTopOf="@id/item_profile_img"
+                tools:text="Anita murthy has got to sdsdk" />
+
+
+            <android.support.v7.widget.AppCompatTextView
+                android:id="@+id/item_username"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin"
+                android:layout_marginLeft="@dimen/margin"
+                android:layout_marginEnd="@dimen/margin"
+                android:layout_marginRight="@dimen/margin"
+                android:fontFamily="sans-serif-medium"
+                android:paddingTop="@dimen/margin_xsmall"
+                android:textColor="@color/item_color_time"
+                android:textSize="@dimen/font_small"
+                app:layout_constraintLeft_toRightOf="@id/item_profile_img"
+                app:layout_constraintTop_toBottomOf="@id/item_title"
+                 />
+
+
+
+
+        </android.support.constraint.ConstraintLayout>
+
+
+    </android.support.v7.widget.CardView>
+</layout>

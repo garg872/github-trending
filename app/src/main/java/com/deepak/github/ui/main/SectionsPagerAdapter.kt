@@ -5,6 +5,7 @@ import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
 import android.support.v4.app.FragmentPagerAdapter
 import com.deepak.github.R
+import com.deepak.github.ui.fragment.DeveloperListFragment
 import com.deepak.github.ui.fragment.RepositoryListFragment
 
 private val TAB_TITLES = arrayOf(
@@ -23,7 +24,7 @@ class SectionsPagerAdapter(private val context: Context, fm: FragmentManager) :
         // getItem is called to instantiate the fragment for the given page.
         // Return a PlaceholderFragment (defined as a static inner class below).
         if (position == 0) return RepositoryListFragment.newInstance()
-        return PlaceholderFragment.newInstance(position + 1)
+        return DeveloperListFragment.newInstance()
     }
 
     override fun getPageTitle(position: Int): CharSequence? {
