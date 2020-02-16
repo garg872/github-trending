@@ -12,4 +12,11 @@
     <string name="responseMalformedJson">Oops! We hit an error. Try again later.</string>
     <string name="errorCodeConnectFailed">Connection failed</string>
     <string name="responseConnectFailed">Oops! Connection timeout.</string>
+
+    <string name="text_forks">forks</string>
+    <string name="text_currentPeriodStars">Current \n Period Stars</string>
+    <string name="text_stars">stars</string>
+    <string name="btn_share">Share</string>
+    <string name="btn_open">Open in Browser</string>
+    <string name="btn_visit">Visit Site</string>
 </resources>

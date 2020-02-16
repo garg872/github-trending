@@ -22,6 +22,7 @@ import com.deepak.github.databinding.FragmentTrendingReposBinding
 import com.deepak.github.ui.adaptor.RepositoryListAdapter
 import com.deepak.github.ui.base.BaseFragment
 import com.deepak.github.ui.callbacks.RepositoryListCallback
+import com.deepak.github.utils.NavigatorUtils
 import com.deepak.github.viewmodel.RepositoryListViewModel
 import javax.inject.Inject
 
@@ -39,6 +40,10 @@ class RepositoryListFragment : BaseFragment<RepositoryListViewModel, FragmentTre
 
     override fun onRepositoryClicked(repositoryEntity: RepositoryEntity?) {
         Log.i("DEEPAK", "onRepositoryClicked " + repositoryEntity?.name)
+        repositoryEntity?.let {
+            NavigatorUtils.redirectToDetailScreen(activity, repositoryEntity, null)
+        }
+
     }
 
 
