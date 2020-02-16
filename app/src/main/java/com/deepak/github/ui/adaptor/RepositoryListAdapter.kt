@@ -50,7 +50,11 @@ class RepositoryListAdapter(private val repositoryListCallback: RepositoryListCa
     }
 
     fun getItem(position: Int) : RepositoryEntity {
-        return repositoryEntities!!.get(position)
+        return repositoryEntitiesFiltered!!.get(position)
+    }
+
+    fun resetData(){
+        repositoryEntitiesFiltered = repositoryEntities
     }
 
     override fun getFilter(): Filter {
@@ -61,10 +65,15 @@ class RepositoryListAdapter(private val repositoryListCallback: RepositoryListCa
                     repositoryEntitiesFiltered = repositoryEntities
                 } else {
                     val filteredList = ArrayList<RepositoryEntity>()
-                    for (row in repositoryEntities!!) {
-
-
+                    repositoryEntities?.let {
+                        for (row in it) {
+                            if (row.name?.contains(charString, false) ?: false
+                                || row.author?.contains(charString, false) ?: false){
+                                filteredList.add(row)
+                            }
+                        }
                     }
+
 
                     repositoryEntitiesFiltered = filteredList
                 }

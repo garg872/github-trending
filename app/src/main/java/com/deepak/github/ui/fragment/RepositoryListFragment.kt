@@ -38,7 +38,7 @@ class RepositoryListFragment : BaseFragment<RepositoryListViewModel, FragmentTre
     var repositoryListAdapter: RepositoryListAdapter? = null
 
     override fun onRepositoryClicked(repositoryEntity: RepositoryEntity?) {
-
+        Log.i("DEEPAK", "onRepositoryClicked " + repositoryEntity?.name)
     }
 
 
@@ -53,7 +53,7 @@ class RepositoryListFragment : BaseFragment<RepositoryListViewModel, FragmentTre
         savedInstanceState: Bundle?
     ): View? {
         super.onCreateView(inflater, container, savedInstanceState)
-        //setHasOptionsMenu(true)
+        setHasOptionsMenu(true)
         dataBinding?.recyclerView?.setLayoutManager(LinearLayoutManager(getActivity()))
         repositoryListAdapter = RepositoryListAdapter(this)
         dataBinding?.recyclerView?.setAdapter(repositoryListAdapter)
@@ -83,17 +83,17 @@ class RepositoryListFragment : BaseFragment<RepositoryListViewModel, FragmentTre
         if (null == getActivity())
             return
 
-       /* val searchView: SearchView
-        getActivity().getMenuInflater().inflate(R.menu.menu_main, menu)
+        val searchView: SearchView
+        getActivity()?.getMenuInflater()?.inflate(R.menu.menu_main, menu)
 
         // Associate searchable configuration with the SearchView
-        val searchManager = getActivity().getSystemService(Context.SEARCH_SERVICE) as SearchManager
+        val searchManager = getActivity()?.getSystemService(Context.SEARCH_SERVICE) as SearchManager
         searchView = menu.findItem(R.id.action_search)
             .actionView as SearchView
 
         searchView.setSearchableInfo(
             searchManager
-                .getSearchableInfo(getActivity().getComponentName())
+                .getSearchableInfo(getActivity()?.getComponentName())
         )
         searchView.maxWidth = Integer.MAX_VALUE
 
@@ -101,39 +101,47 @@ class RepositoryListFragment : BaseFragment<RepositoryListViewModel, FragmentTre
         searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String): Boolean {
                 // filter recycler view when query submitted
-                if (null != dataBinding.recyclerView.getAdapter())
-                    (dataBinding.recyclerView.getAdapter() as ArticleListAdapter).getFilter().filter(
-                        query
-                    )
+                dataBinding?.recyclerView?.adapter?.let {
+                    if (it is RepositoryListAdapter) {
+                        it.filter.filter(query)
+                    }
+                }
                 return false
             }
 
             override fun onQueryTextChange(query: String): Boolean {
                 // filter recycler view when text is changed
-                if (null != dataBinding.recyclerView.getAdapter())
-                    (dataBinding.recyclerView.getAdapter() as ArticleListAdapter).getFilter().filter(
-                        query
-                    )
+                dataBinding?.recyclerView?.adapter?.let {
+                    if (it is RepositoryListAdapter) {
+                        it.filter.filter(query)
+                    }
+                }
                 return false
             }
-        })*/
+        })
+        searchView.setOnCloseListener(object : SearchView.OnCloseListener{
+            override fun onClose(): Boolean {
+                dataBinding?.recyclerView?.adapter?.let {
+                    if (it is RepositoryListAdapter) {
+                        it.resetData()
+                    }
+                }
+                return false
+            }
+        })
         super.onCreateOptionsMenu(menu, inflater)
     }
 
 
-   /* override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        //val id = item.itemId
-
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        val id = item.itemId
 
         return if (id == R.id.action_search) {
             true
         } else super.onOptionsItemSelected(item)
 
     }
-*/
+
     companion object {
 
         fun newInstance(): RepositoryListFragment {

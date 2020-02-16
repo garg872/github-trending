@@ -43,26 +43,9 @@ class DeveloperListFragment : BaseFragment<DeveloperListViewModel, FragmentTrend
 
 
     override fun onDeveloperClicked(developerEntity: DeveloperEntity?) {
+        Log.i("DEEPAK", "onDeveloperClicked " + developerEntity?.name)
 
     }
-
-/*            val args = Bundle()
-            args.putString(Constants.BUNDLE_KEY_ARTICLE_URL, articleEntity.getUrl())
-            args.putString(
-                Constants.BUNDLE_KEY_ARTICLE_PUBLISHED_DATE,
-                articleEntity.getPublishedDate()
-            )
-            val detailFragment = ArticleDetailFragment()
-            detailFragment.setArguments(args)
-            FragmentUtils.replaceFragment(
-                getActivity() as AppCompatActivity,
-                detailFragment,
-                R.id.fragContainer,
-                true,
-                FragmentUtils.TRANSITION_SLIDE_LEFT_RIGHT
-            )
-        }*/
-
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -76,7 +59,7 @@ class DeveloperListFragment : BaseFragment<DeveloperListViewModel, FragmentTrend
         savedInstanceState: Bundle?
     ): View? {
         super.onCreateView(inflater, container, savedInstanceState)
-        //setHasOptionsMenu(true)
+        setHasOptionsMenu(true)
         dataBinding?.recyclerView?.setLayoutManager(LinearLayoutManager(getActivity()))
         developerListAdapter = DeveloperListAdapter(this)
         dataBinding?.recyclerView?.setAdapter(developerListAdapter)
@@ -106,17 +89,17 @@ class DeveloperListFragment : BaseFragment<DeveloperListViewModel, FragmentTrend
         if (null == getActivity())
             return
 
-       /* val searchView: SearchView
-        getActivity().getMenuInflater().inflate(R.menu.menu_main, menu)
+        val searchView: SearchView
+        getActivity()?.getMenuInflater()?.inflate(R.menu.menu_main, menu)
 
         // Associate searchable configuration with the SearchView
-        val searchManager = getActivity().getSystemService(Context.SEARCH_SERVICE) as SearchManager
+        val searchManager = getActivity()?.getSystemService(Context.SEARCH_SERVICE) as SearchManager
         searchView = menu.findItem(R.id.action_search)
             .actionView as SearchView
 
         searchView.setSearchableInfo(
             searchManager
-                .getSearchableInfo(getActivity().getComponentName())
+                .getSearchableInfo(getActivity()?.getComponentName())
         )
         searchView.maxWidth = Integer.MAX_VALUE
 
@@ -124,39 +107,48 @@ class DeveloperListFragment : BaseFragment<DeveloperListViewModel, FragmentTrend
         searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String): Boolean {
                 // filter recycler view when query submitted
-                if (null != dataBinding.recyclerView.getAdapter())
-                    (dataBinding.recyclerView.getAdapter() as ArticleListAdapter).getFilter().filter(
-                        query
-                    )
+                dataBinding?.recyclerView?.adapter?.let {
+                    if (it is DeveloperListAdapter) {
+                        it.filter.filter(query)
+                    }
+                }
                 return false
             }
 
             override fun onQueryTextChange(query: String): Boolean {
                 // filter recycler view when text is changed
-                if (null != dataBinding.recyclerView.getAdapter())
-                    (dataBinding.recyclerView.getAdapter() as ArticleListAdapter).getFilter().filter(
-                        query
-                    )
+                dataBinding?.recyclerView?.adapter?.let {
+                    if (it is DeveloperListAdapter) {
+                        it.filter.filter(query)
+                    }
+                }
                 return false
             }
-        })*/
+        })
+        searchView.setOnCloseListener(object : SearchView.OnCloseListener{
+            override fun onClose(): Boolean {
+                dataBinding?.recyclerView?.adapter?.let {
+                    if (it is DeveloperListAdapter) {
+                        it.resetData()
+                    }
+                }
+                return false
+            }
+        })
         super.onCreateOptionsMenu(menu, inflater)
     }
 
 
-   /* override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        //val id = item.itemId
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
 
+        val id = item.itemId
 
         return if (id == R.id.action_search) {
             true
         } else super.onOptionsItemSelected(item)
 
     }
-*/
+
     companion object {
 
         fun newInstance(): DeveloperListFragment {

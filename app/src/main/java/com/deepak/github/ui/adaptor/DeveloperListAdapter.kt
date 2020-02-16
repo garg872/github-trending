@@ -51,6 +51,10 @@ class DeveloperListAdapter(private val developerListCallback: DeveloperListCallb
         return developerEntities!!.get(position)
     }
 
+    fun resetData() {
+        developerEntitiesFiltered = developerEntities
+    }
+
     override fun getFilter(): Filter {
         return object : Filter() {
             override fun performFiltering(charSequence: CharSequence): Filter.FilterResults {
@@ -59,9 +63,13 @@ class DeveloperListAdapter(private val developerListCallback: DeveloperListCallb
                     developerEntitiesFiltered = developerEntities
                 } else {
                     val filteredList = ArrayList<DeveloperEntity>()
-                    for (row in developerEntities!!) {
-
-
+                    developerEntities?.let {
+                        for (row in it) {
+                            if (row.name?.contains(charString, false) ?: false
+                                || row.username?.contains(charString, false) ?: false){
+                                filteredList.add(row)
+                            }
+                        }
                     }
 
                     developerEntitiesFiltered = filteredList

@@ -42,7 +42,6 @@ data class RepositoryEntity (
     @SerializedName("currentPeriodStars")
     var currentPeriodStars: Int = 0
 ) : Parcelable {
-    //region Constructor
     constructor(parcel: Parcel) : this(
         parcel.readString(),
         parcel.readString(),
@@ -53,11 +52,10 @@ data class RepositoryEntity (
         parcel.readString(),
         parcel.readInt(),
         parcel.readInt(),
-        parcel.readInt()) {
+        parcel.readInt()
+    ) {
     }
-    //endregion
 
-    //region Parcelable methods implementation
     override fun writeToParcel(parcel: Parcel, flags: Int) {
         parcel.writeString(author)
         parcel.writeString(name)
@@ -75,17 +73,13 @@ data class RepositoryEntity (
         return 0
     }
 
-    companion object {
-        @JvmField
-        val CREATOR: Parcelable.Creator<RepositoryEntity> = object : Parcelable.Creator<RepositoryEntity> {
-            override fun createFromParcel(parcel: Parcel): RepositoryEntity {
-                return RepositoryEntity(parcel)
-            }
+    companion object CREATOR : Parcelable.Creator<RepositoryEntity> {
+        override fun createFromParcel(parcel: Parcel): RepositoryEntity {
+            return RepositoryEntity(parcel)
+        }
 
-            override fun newArray(size: Int): Array<RepositoryEntity?> {
-                return arrayOfNulls(size)
-            }
+        override fun newArray(size: Int): Array<RepositoryEntity?> {
+            return arrayOfNulls(size)
         }
     }
-    //endregion
 }

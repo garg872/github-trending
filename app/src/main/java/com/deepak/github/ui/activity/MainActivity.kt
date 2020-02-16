@@ -4,6 +4,7 @@ import com.deepak.github.databinding.ActivityMainBinding
 import android.os.Bundle
 import android.support.design.widget.TabLayout
 import android.support.v4.view.ViewPager
+import android.support.v7.widget.Toolbar
 import com.deepak.github.R
 import com.deepak.github.ui.base.BaseActivity
 import com.deepak.github.ui.main.SectionsPagerAdapter
@@ -17,7 +18,8 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
     override fun onCreate(savedInstanceState: Bundle?) {
         AndroidInjection.inject(this)
         super.onCreate(savedInstanceState)
-
+        val toolBar : Toolbar = findViewById(R.id.toolbar)
+        setSupportActionBar(toolBar)
         val sectionsPagerAdapter = SectionsPagerAdapter(this, supportFragmentManager)
         val viewPager: ViewPager = findViewById(R.id.view_pager)
         viewPager.adapter = sectionsPagerAdapter
