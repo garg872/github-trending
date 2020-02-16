@@ -4,6 +4,8 @@ import android.app.Application
 
 import com.deepak.github.GithubApplication
 import com.deepak.github.di.builder.ActivityBuilderModule
+import com.deepak.github.di.builder.FragmentBuilderModule
+import com.deepak.github.di.module.AppModule
 
 import javax.inject.Singleton
 
@@ -13,9 +15,11 @@ import dagger.android.support.AndroidSupportInjectionModule
 
 
 @Singleton
-@Component(modules = [GithubApplication::class,
+@Component(modules = [AppModule::class,
+    GithubApplication::class,
     AndroidSupportInjectionModule::class,
-    ActivityBuilderModule::class])
+    ActivityBuilderModule::class
+    ])
 interface AppComponent {
 
     @Component.Builder

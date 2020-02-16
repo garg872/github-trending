@@ -2,6 +2,8 @@ package com.deepak.github.di.module
 
 import android.app.Application
 import android.arch.persistence.room.Room
+import com.deepak.github.data.local.RepositoryDatabase
+import com.deepak.github.data.local.dao.RepositoryDao
 
 import com.deepak.github.data.remote.ApiConstants
 import com.deepak.github.data.remote.GithubApiService
@@ -44,16 +46,16 @@ class AppModule {
         return retrofit.create(GithubApiService::class.java)
     }
 
-    //    @Provides
-    //    @Singleton
-    //    ArticleDatabase provideGithubDatabase(Application application) {
-    //        return Room.databaseBuilder(application, ArticleDatabase.class, "github.db").build();
-    //    }
-    //
-    //    @Provides
-    //    @Singleton
-    //    ArticleDao provideArticleDao(ArticleDatabase articleDatabase) {
-    //        return articleDatabase.articleDao();
-    //    }
+    @Provides
+    @Singleton
+    fun provideGithubDatabase(application: Application) =
+         Room.databaseBuilder(application, RepositoryDatabase::class.java, "github.db").build()
+
+
+    @Provides
+    @Singleton
+    fun provideRepositoryDao(repositoryDatabase : RepositoryDatabase): RepositoryDao{
+        return repositoryDatabase.repositoryDao()
+    }
 
 }

@@ -2,6 +2,7 @@ package com.deepak.github.di.module
 
 import android.arch.lifecycle.ViewModel
 import android.arch.lifecycle.ViewModelProvider
+import com.deepak.github.viewmodel.RepositoryListViewModel
 
 import com.deepak.github.viewmodel.ViewModelFactory
 
@@ -12,13 +13,16 @@ import dagger.multibindings.IntoMap
 
 @Module
 abstract class ViewModelModule {
-    //
-    //    @Binds
-    //    @IntoMap
-    //    @ViewModelKey(ArticleListViewModel.class)
-    //    @SuppressWarnings("unused")
-    //    abstract ViewModel bindsArticleListViewModel(ArticleListViewModel articleListViewModel);
-    //
+
+    @Binds
+    abstract fun bindsViewModelFactory(viewModelFactory: ViewModelFactory): ViewModelProvider.Factory
+
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(RepositoryListViewModel::class)
+    abstract fun bindsRepositoryListViewModel(repositoryListViewModel: RepositoryListViewModel): ViewModel
+
     //    @Binds
     //    @IntoMap
     //    @ViewModelKey(ArticleDetailsViewModel.class)
@@ -26,6 +30,5 @@ abstract class ViewModelModule {
     //    abstract ViewModel bindsArticleDetailsiewModel(ArticleDetailsViewModel articleDetailsViewModel);
 
 
-    @Binds
-    abstract fun bindsViewModelFactory(viewModelFactory: ViewModelFactory): ViewModelProvider.Factory
+
 }

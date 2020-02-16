@@ -1,10 +1,13 @@
 package com.deepak.github.data.local.entity
 
+import android.arch.persistence.room.Entity
 import android.os.Parcel
 import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
 
+@Entity(tableName = "repositories")
 data class RepositoryEntity (
+
     @SerializedName("author")
     var author: String? = null,
 

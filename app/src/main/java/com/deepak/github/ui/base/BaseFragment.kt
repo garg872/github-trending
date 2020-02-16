@@ -15,21 +15,22 @@ import android.view.ViewGroup
 import javax.inject.Inject
 
 import dagger.android.support.AndroidSupportInjection
+import dagger.android.support.DaggerFragment
 
-abstract class BaseFragment<V : ViewModel, D : ViewDataBinding> : Fragment() {
+abstract class BaseFragment<V : ViewModel, D : ViewDataBinding> : DaggerFragment() {
 
 
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
     
-    protected var viewModel: V? = null
+    var viewModel: V? = null
 
-    protected var dataBinding: D? = null
+    var dataBinding: D? = null
 
     @get:LayoutRes
-    protected abstract val layoutRes: Int
+    abstract val layoutRes: Int
 
-    protected abstract fun getViewModel(): Class<V>
+    abstract fun getViewModel(): Class<V>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         AndroidSupportInjection.inject(this)
